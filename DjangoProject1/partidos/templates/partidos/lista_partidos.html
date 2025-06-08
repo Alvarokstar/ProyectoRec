@@ -1,0 +1,35 @@
+{% extends 'partidos/base.html' %}
+
+{% block content %}
+<h1 class="mb-4">Lista de Partidos</h1>
+
+<table class="table table-striped">
+    <thead>
+        <tr>
+            <th>Local</th>
+            <th>Visitante</th>
+            <th>Fecha</th>
+            <th>Acciones</th>
+        </tr>
+    </thead>
+    <tbody>
+        {% for partido in partidos %}
+        <tr>
+            <td>{{ partido.local.nombre }}</td>
+            <td>{{ partido.visitante.nombre }}</td>
+            <td>{{ partido.fecha|date:"d/m/Y H:i" }}</td>
+            <td>
+                <a href="{% url 'partidos:detalle_partido' partido.id %}" class="btn btn-sm btn-primary">Ver</a>
+                {% if user.is_authenticated and user.rol == 'ADMIN' %}
+                <a href="{% url 'partidos:crear_evento' partido.id %}" class="btn btn-sm btn-success">Añadir Evento</a>
+                {% endif %}
+            </td>
+        </tr>
+        {% empty %}
+        <tr>
+            <td colspan="4">No hay partidos programados</td>
+        </tr>
+        {% endfor %}
+    </tbody>
+</table>
+{% endblock %}

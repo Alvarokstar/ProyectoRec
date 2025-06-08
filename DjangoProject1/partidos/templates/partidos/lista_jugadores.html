@@ -1,0 +1,26 @@
+{% extends 'partidos/base.html' %}
+
+{% block content %}
+<h1 class="mb-4">Lista de Jugadores</h1>
+
+<table class="table table-striped">
+    <thead>
+        <tr>
+            <th>Nombre</th>
+            <th>Equipo</th>
+            <th>Número</th>
+            <th>Posición</th>
+        </tr>
+    </thead>
+    <tbody>
+        {% for jugador in jugadores %}
+        <tr>
+            <td>{{ jugador.nombre }} {{ jugador.apellido }}</td>
+            <td>{{ jugador.equipo.nombre }}</td>
+            <td>{{ jugador.numero }}</td>
+            <td>{{ jugador.posicion }}</td>
+        </tr>
+        {% endfor %}
+    </tbody>
+</table>
+{% endblock %}

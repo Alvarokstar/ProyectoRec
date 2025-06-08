@@ -1,0 +1,20 @@
+{% extends 'partidos/base.html' %}
+
+{% block content %}
+<div class="card mb-4">
+    <div class="card-body">
+        <div class="row">
+            <div class="col-md-3 text-center">
+                <img src="{{ jugador.equipo.escudo.url }}" alt="{{ jugador.equipo.nombre }}" class="img-fluid mb-3" style="max-height: 150px;">
+                <h5>{{ jugador.equipo.nombre }}</h5>
+            </div>
+            <div class="col-md-9">
+                <h2>{{ jugador.nombre }} {{ jugador.apellido }}</h2>
+                <p><strong>Número:</strong> {{ jugador.numero }}</p>
+                <p><strong>Posición:</strong> {{ jugador.posicion }}</p>
+                <p><strong>Nacionalidad:</strong> {{ jugador.nacionalidad }}</p>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}

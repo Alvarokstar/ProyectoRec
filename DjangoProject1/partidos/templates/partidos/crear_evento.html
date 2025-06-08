@@ -1,0 +1,12 @@
+{% extends 'partidos/base.html' %}
+
+{% block content %}
+<h1 class="mb-4">Añadir Evento al Partido</h1>
+<h2>{{ partido.local }} vs {{ partido.visitante }}</h2>
+
+<form method="post" class="mt-4">
+    {% csrf_token %}
+    {{ form.as_p }}
+    <button type="submit" class="btn btn-primary">Guardar Evento</button>
+    <button type="reset" class="btn btn-secondary">Cancelar</button></form>
+{% endblock %}

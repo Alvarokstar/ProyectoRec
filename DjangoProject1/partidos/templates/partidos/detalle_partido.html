@@ -1,0 +1,33 @@
+{% extends 'partidos/base.html' %}
+
+{% block content %}
+<div class="card mb-4">
+    <div class="card-header">
+        <h2>{{ partido.local.nombre }} vs {{ partido.visitante.nombre }}</h2>
+    </div>
+    <div class="card-body">
+        <p><strong>Fecha:</strong> {{ partido.fecha|date:"d/m/Y H:i" }}</p>
+        <p><strong>Estadio:</strong> {{ partido.estadio.nombre }}</p>
+        <p><strong>Grupo:</strong> {{ partido.grupo }}</p>
+        <p><strong>Resultado:</strong> {{ partido.goles_local }} - {{ partido.goles_visitante }}</p>
+    </div>
+</div>
+
+<h3 class="mb-3">Eventos del Partido</h3>
+<ul class="list-group mb-4">
+    {% for evento in partido.eventos.all %}
+    <li class="list-group-item">
+        <strong>Min. {{ evento.minuto }}:</strong>
+        {{ evento.get_tipo_display }} - {{ evento.jugador.nombre_completo }}
+        {% if evento.comentario %}({{ evento.comentario }}){% endif %}
+    </li>
+    {% empty %}
+    <li class="list-group-item">No hay eventos registrados</li>
+    {% endfor %}
+</ul>
+
+<h3 class="mb-3">Comentarios</h3>
+<!-- Aquí puedes añadir la sección de comentarios si la necesitas -->
+
+<a href="{% url 'partidos:lista_partidos' %}" class="btn btn-secondary">Volver</a>
+{% endblock %}

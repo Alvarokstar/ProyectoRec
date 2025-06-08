@@ -1,0 +1,22 @@
+{% extends 'partidos/base.html' %}
+
+{% block content %}
+<h1 class="mb-4">Lista de Equipos</h1>
+
+<div class="row">
+    {% for equipo in equipos %}
+    <div class="col-md-4 mb-4">
+        <div class="card">
+            <img src="{{ equipo.escudo.url }}" class="card-img-top" alt="{{ equipo.nombre }}" style="height: 200px; object-fit: contain;">
+            <div class="card-body">
+                <h5 class="card-title">{{ equipo.nombre }}</h5>
+                <p class="card-text">
+                    <strong>País:</strong> {{ equipo.pais }}<br>
+                    <strong>Grupo:</strong> {{ equipo.grupo }}
+                </p>
+            </div>
+        </div>
+    </div>
+    {% endfor %}
+</div>
+{% endblock %}
