@@ -1,23 +1,28 @@
-# Usa la imagen oficial de Python
+# Imagen base de Python
 FROM python:3.9-slim
 
-# Establece el directorio de trabajo
-WORKDIR /partidos
+# Variables de entorno
+ENV PYTHONDONTWRITEBYTECODE 1
+ENV PYTHONUNBUFFERED 1
 
-# Instala Sqlite
+# Directorio de trabajo
+WORKDIR /app
+
+# Instalar dependencias del sistema (para PostgreSQL)
 RUN apt-get update && apt-get install -y \
-    sqlite3 \
+    libpq-dev \
+    gcc \
     && rm -rf /var/lib/apt/lists/*
 
-# Copia los archivos de requisitos e instálalos
+# Instalar dependencias de Python
 COPY requirements.txt .
 RUN pip install --no-cache-dir -r requirements.txt
 
-# Copia el resto del proyecto
+# Copiar el proyecto
 COPY . .
 
 # Puerto expuesto
 EXPOSE 8000
 
-# Comando para ejecutar la aplicación
-CMD ["python", "manage.py", "runserver", "0.0.0.0:8000"]
+# Comando de inicio (usando gunicorn para producción)
+CMD ["gunicorn", "--bind", "0.0.0.0:8000", "mundialclubes.wsgi:application"]
